@@ -1,0 +1,2 @@
+- Updated the Face-Tracking Laser Pointer to handle DMA transfers instead of interrupt-polling to reduce latency by 75%.
+- Wrote the DMA controller driver for USART2_Rx.
