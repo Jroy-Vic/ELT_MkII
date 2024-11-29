@@ -52,23 +52,15 @@ int main(void)
   LASER_init();
 
   /* Set Terminal and Servos to Default State */
-  reset_terminal();
   SERVO_activate();
 
   while (1)
   {
+	  /* Control ServoX and ServoY Using Python Script */
 	  SERVO_activate();
 	  LASER_activate();
 	  input_handler();
   }
-}
-
-
-/* Clears Array and Terminal */
-void reset_terminal() {
-	/* Reset Terminal */
-	UART_ESC_Code("[2J");
-	UART_ESC_Code("[H");
 }
 
 
@@ -99,7 +91,6 @@ int16_t input_convert() {
 			sum += (CHAR_TO_INT(element) * DIGIT_SELECT(idx));
 		} else {
 			/* Retain Previous Value */
-			UART_print("Incorrect Data Format!\n\r");
 			return NEGATIVE;
 		}
 
@@ -131,13 +122,6 @@ void input_handler() {
 	} else if ((inputArr[0] == 'y') || (inputArr[0] == 'Y')) {
 		SERVO_update(NEGATIVE, input_convert());
 	}
-	/* Erase Corrupted Data */
-	else {
-		UART_print("Incorrect Data Format!\n\r");
-	}
-
-	/* Clear Array and Reset Index */
-	reset_terminal();
 }
 
 
